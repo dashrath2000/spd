@@ -596,27 +596,20 @@ img {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Floating Actions Container */
-.floating-actions {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 1000;
-}
-
 /* WhatsApp Float */
 .whatsapp-float {
+  position: fixed;
   width: 60px;
   height: 60px;
+  bottom: 30px;
+  right: 30px;
   background-color: #25d366;
   color: #FFF;
   border-radius: 50px;
   text-align: center;
   font-size: 30px;
   box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -630,92 +623,12 @@ img {
   transform: scale(1.1);
 }
 
-/* Phone Float */
-.phone-float {
-  width: 60px;
-  height: 60px;
-  background-color: var(--secondary);
-  color: white;
-  border-radius: 50px;
-  text-align: center;
-  font-size: 24px;
-  box-shadow: 0 4px 10px rgba(26, 35, 126, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
+/* Footer Base */
+.footer {
+  background: #0a0e2a;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 80px 0 20px;
 }
-
-.phone-float:hover {
-  background-color: var(--secondary-light);
-  transform: scale(1.1);
-}
-
-
-/* Comparison Slider / Gallery */
-.comparison-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.comparison-item {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  height: 400px;
-}
-
-.comparison-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition);
-}
-
-.comparison-item:hover .comparison-img {
-  transform: scale(1.05);
-}
-
-.comparison-label {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #ff4444;
-  color: white;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  z-index: 2;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.comparison-item.after .comparison-label {
-  background: #00C851;
-}
-
-.comparison-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  color: white;
-  z-index: 2;
-}
-
-.comparison-info h4 {
-  color: white;
-  margin-bottom: 5px;
-}
-
 
 .footer-grid {
   display: grid;

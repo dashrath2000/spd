@@ -1,0 +1,8 @@
+# User-agent: * applies to all search engine crawlers
+User-agent: *
+
+# Allow all public pages for indexing as specified in your meta tags
+Allow: /
+
+# Link to your sitemap to help search engines discover your pages
+Sitemap: https://www.spdrenovation.in/sitemap.xml

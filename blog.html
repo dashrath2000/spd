@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Renovation Tips & Guides | SPD Renovation Thane</title>
+
+    <meta name="description"
+        content="Expert renovation tips, cost guides, and home improvement articles for Thane homeowners. Learn about 2BHK renovation costs, electrical, plumbing, and interior design.">
+    <meta name="keywords"
+        content="renovation blog thane, home renovation tips thane, 2bhk renovation guide thane, interior design tips, plumbing advice thane, SPD renovation blog">
+    <meta name="author" content="SPD Electriction & Renovation">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="IN-MH">
+    <meta name="geo.placename" content="Thane">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog — Renovation Tips & Guides | SPD Renovation Thane">
+    <meta property="og:description"
+        content="Expert renovation tips, cost guides, and home improvement articles for Thane homeowners.">
+    <meta property="og:url" content="https://www.spdrenovation.in/blog.html">
+    <meta property="og:site_name" content="SPD Electriction & Renovation">
+    <meta property="og:locale" content="en_IN">
+
+    <link rel="canonical" href="https://www.spdrenovation.in/blog.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ── Blog Listing Extras ── */
+        .blog-hero {
+            margin-top: 80px;
+        }
+
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .post-card-thumb {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(135deg, var(--secondary), #0d145c);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-card-thumb .thumb-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.12);
+        }
+
+        .post-card-thumb .thumb-pattern {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(230, 81, 0, 0.3), transparent 60%);
+        }
+
+        .post-card-category {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.78rem;
+            padding: 5px 13px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .post-card-body {
+            padding: 26px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .post-card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .post-card-meta i {
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        .post-card-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            line-height: 1.35;
+            transition: var(--transition);
+        }
+
+        .post-card:hover .post-card-title {
+            color: var(--primary);
+        }
+
+        .post-card-excerpt {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .post-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .post-card-link:hover {
+            gap: 10px;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 60px;
+            transition: var(--transition);
+        }
+
+        .featured-post:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .featured-thumb {
+            background: linear-gradient(135deg, var(--secondary), #0d145c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 360px;
+            overflow: hidden;
+        }
+
+        .featured-thumb .thumb-icon {
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.08);
+        }
+
+        .featured-thumb .thumb-pattern {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 60% 40%, rgba(230, 81, 0, 0.35), transparent 60%);
+        }
+
+        .featured-thumb .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent);
+            color: #1A237E;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-body {
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(230, 81, 0, 0.1);
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            padding: 5px 13px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            color: var(--secondary);
+            line-height: 1.25;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+
+        .featured-post:hover .featured-title {
+            color: var(--primary);
+        }
+
+        .featured-excerpt {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-bottom: 28px;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-meta i {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-thumb {
+                min-height: 220px;
+            }
+
+            .featured-body {
+                padding: 30px 24px;
+            }
+
+            .featured-title {
+                font-size: 1.5rem;
+            }
+
+            .post-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <div>SPD <span>Reno</span></div>
+                    <small>Electriction & Renovation</small>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="civil-work.html" class="nav-link">Civil</a></li>
+                    <li><a href="electrical.html" class="nav-link">Electrical</a></li>
+                    <li><a href="plumbing.html" class="nav-link">Plumbing</a></li>
+                    <li><a href="interior-design.html" class="nav-link">Interiors</a></li>
+                    <li><a href="renovation.html" class="nav-link">Renovation</a></li>
+                    <li><a href="waterproofing.html" class="nav-link">Waterproofing</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="https://www.justdial.com/Thane/Spd-Electrician-Louis-Wadi-Thane-West/022PXX22-XX22-170518221231-R5V6_BZDET"
+                        class="contact-phone jd-verified" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-star"></i> JustDial Verified
+                    </a>
+                    <a href="tel:+918828444461" class="contact-phone">
+                        <i class="fa-solid fa-phone-volume"></i> +91 8828 444 461
+                    </a>
+                    <a href="https://wa.me/918828444461" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i>
+                        Chat</a>
+                </div>
+
+                <button class="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header blog-hero">
+        <div class="container">
+            <span class="section-tag" style="color: rgba(255,255,255,0.7);">Knowledge Hub</span>
+            <h1 class="page-title">Renovation Tips & Guides</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Blog</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="section-padding" style="background-color: var(--bg-color);">
+        <div class="container">
+
+            <!-- Featured Post -->
+            <a href="2bhk-renovation-cost-thane.html" class="featured-post reveal">
+                <div class="featured-thumb">
+                    <div class="thumb-pattern"></div>
+                    <i class="fa-solid fa-hammer thumb-icon"></i>
+                    <div class="featured-badge">
+                        <i class="fa-solid fa-star"></i> Featured Post
+                    </div>
+                </div>
+                <div class="featured-body">
+                    <span class="featured-category">
+                        <i class="fa-solid fa-hammer"></i> Renovation Guide
+                    </span>
+                    <h2 class="featured-title">2BHK Renovation Cost in Thane (2026 Guide)</h2>
+                    <p class="featured-excerpt">Planning to renovate your 2BHK flat in Thane? Get the complete 2026
+                        cost breakdown — civil work, electrical, plumbing, modular kitchen, waterproofing and more —
+                        with smart money-saving tips from local renovation experts.</p>
+                    <div class="featured-meta">
+                        <span><i class="fa-solid fa-user"></i> SPD Renovation Team</span>
+                        <span><i class="fa-solid fa-calendar"></i> April 18, 2026</span>
+                        <span><i class="fa-solid fa-clock"></i> 8 min read</span>
+                    </div>
+                    <span class="post-card-link">
+                        Read Full Guide <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+            </a>
+
+            <!-- All Posts Grid -->
+            <div class="section-header reveal" style="margin-bottom: 40px;">
+                <span class="section-tag">All Articles</span>
+                <h2 class="section-title">More From Our Blog</h2>
+                <p class="section-desc">Expert guides, cost breakdowns, and insider tips to help Thane homeowners
+                    make informed renovation decisions.</p>
+            </div>
+
+            <div class="post-grid">
+                <!-- Post 1 -->
+                <a href="2bhk-renovation-cost-thane.html" class="post-card reveal">
+                    <div class="post-card-thumb">
+                        <div class="thumb-pattern"></div>
+                        <i class="fa-solid fa-hammer thumb-icon"></i>
+                        <span class="post-card-category">Renovation</span>
+                    </div>
+                    <div class="post-card-body">
+                        <div class="post-card-meta">
+                            <span><i class="fa-solid fa-calendar"></i> Apr 18, 2026</span>
+                            <span><i class="fa-solid fa-clock"></i> 8 min</span>
+                        </div>
+                        <h3 class="post-card-title">2BHK Renovation Cost in Thane (2026 Guide)</h3>
+                        <p class="post-card-excerpt">Full cost breakdown for renovating a 2BHK in Thane — civil,
+                            electrical, plumbing, interiors & waterproofing, with smart saving tips.</p>
+                        <span class="post-card-link">Read More <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- Coming Soon Card 1 -->
+                <div class="post-card reveal" style="transition-delay:0.1s; opacity:0.6; pointer-events:none;">
+                    <div class="post-card-thumb" style="background: linear-gradient(135deg,#1a237e,#283593);">
+                        <div class="thumb-pattern"></div>
+                        <i class="fa-solid fa-bolt thumb-icon"></i>
+                        <span class="post-card-category" style="background:#FF6F00;">Electrical</span>
+                    </div>
+                    <div class="post-card-body">
+                        <div class="post-card-meta">
+                            <span><i class="fa-solid fa-calendar"></i> Coming Soon</span>
+                        </div>
+                        <h3 class="post-card-title">How to Rewire a Flat in Thane: Costs & Process (2026)</h3>
+                        <p class="post-card-excerpt">Everything you need to know about rewiring your old flat — from
+                            MCB panel upgrades to ISI-marked wires & smart home setups.</p>
+                        <span class="post-card-link" style="opacity:0.5">Coming Soon</span>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Card 2 -->
+                <div class="post-card reveal" style="transition-delay:0.2s; opacity:0.6; pointer-events:none;">
+                    <div class="post-card-thumb" style="background: linear-gradient(135deg,#1b5e20,#2e7d32);">
+                        <div class="thumb-pattern"></div>
+                        <i class="fa-solid fa-droplet-slash thumb-icon"></i>
+                        <span class="post-card-category" style="background:#00796B;">Waterproofing</span>
+                    </div>
+                    <div class="post-card-body">
+                        <div class="post-card-meta">
+                            <span><i class="fa-solid fa-calendar"></i> Coming Soon</span>
+                        </div>
+                        <h3 class="post-card-title">Terrace Waterproofing Cost in Thane — What to Expect</h3>
+                        <p class="post-card-excerpt">Monsoon-proof your Thane home with our in-depth guide to terrace
+                            and bathroom waterproofing costs, methods & best materials in 2026.</p>
+                        <span class="post-card-link" style="opacity:0.5">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section reveal">
+        <div class="container">
+            <h2 class="cta-title">Ready for a Premium Home Makeover?</h2>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; opacity: 0.9;">Schedule a free site visit
+                and architectural consultation in Thane West today.</p>
+            <div class="cta-buttons">
+                <a href="tel:+918828444461" class="btn btn-white"><i class="fa-solid fa-phone"></i> Call +91 8828
+                    444 461</a>
+                <a href="https://wa.me/918828444461" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i>
+                    WhatsApp Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/918828444461" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        SPD <span>Reno</span>
+                    </div>
+                    <p style="margin-bottom: 20px;">Elite residential renovation and contracting services in Thane.
+                        Specializing in high-end civil, plumbing, electrical, and interior designs.</p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="civil-work.html">Civil Work</a></li>
+                        <li><a href="interior-design.html">Interior Design</a></li>
+                        <li><a href="plumbing.html">Plumbing</a></li>
+                        <li><a href="electrical.html">Electrical</a></li>
+                        <li><a href="waterproofing.html">Waterproofing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="tel:+918828444461">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-location-dot"></i> Room No 13, Shree Ganesh Society, Pipe Line
+                            Road, Louis Wadi, Thane West, Maharashtra.</li>
+                        <li><i class="fa-solid fa-phone"></i> +91 8828 444 461</li>
+                        <li><i class="fa-solid fa-user"></i> Badri Lal Prajapat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 SPD Electriction & Renovation. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,9 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "**",
-      "use": "@vercel/static"
-    }
-  ]
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": null,
+  "cleanUrls": true
 }

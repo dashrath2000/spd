@@ -4,12 +4,21 @@ import slugify from 'slugify';
 
 dotenv.config();
 
+function formatPublishedDate(dateObj = new Date()) {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[dateObj.getMonth()];
+  const day = dateObj.getDate();
+  const year = dateObj.getFullYear();
+  return `${month} ${day}, ${year}`;
+}
+
 export async function generateArticle({ keyword, category, location }) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   const currentYear = new Date().getFullYear();
   const slug = slugify(`${keyword}-${currentYear}`, { lower: true, strict: true });
-  const publishedDate = new Date().toISOString().split('T')[0];
+  const publishedDate = formatPublishedDate(new Date());
+  const rawDateIso = new Date().toISOString().split('T')[0];
 
   const systemPrompt = `
 You are an elite SEO renovation content strategist, structural engineer, and technical blogger writing for SPD Renovation.
@@ -40,22 +49,25 @@ CRITICAL INSTRUCTIONS:
       const response = await model.generateContent(systemPrompt);
       const rawText = response.response.text();
 
-      return parseGeminiResponse(rawText, keyword, category, location, slug, publishedDate);
+      return parseGeminiResponse(rawText, keyword, category, location, slug, publishedDate, rawDateIso);
     } catch (err) {
       console.warn(`⚠️ Gemini API notice (${err.message}). Using Agent high-speed built-in generator...`);
     }
   }
 
   // Built-in standalone generator for local runs
-  return generateComprehensiveArticleLocally({ keyword, category, location, slug, publishedDate });
+  return generateComprehensiveArticleLocally({ keyword, category, location, slug, publishedDate, rawDateIso });
 }
 
-function parseGeminiResponse(text, keyword, category, location, slug, publishedDate) {
+function parseGeminiResponse(text, keyword, category, location, slug, publishedDate, rawDateIso) {
   const titleMatch = text.match(/SEO Title:\s*(.+)/i) || text.match(/^#\s*(.+)/m);
   const title = titleMatch ? titleMatch[1].replace(/["#]/g, '').trim() : `${keyword}: Complete ${new Date().getFullYear()} Cost & Material Guide`;
 
   const descMatch = text.match(/Meta Description:\s*(.+)/i);
   const description = descMatch ? descMatch[1].trim() : `Complete guide to ${keyword}. Learn step-by-step renovation costs, material choices, society NOC permits & contractor tips from SPD Renovation.`;
+
+  const wordCount = text.trim().split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 250);
 
   return {
     title,
@@ -64,6 +76,9 @@ function parseGeminiResponse(text, keyword, category, location, slug, publishedD
     category,
     targetKeyword: keyword,
     publishedDate,
+    rawDateIso,
+    readingTime,
+    wordCount,
     author: 'SPD Electriction & Renovation',
     tags: [category, location, 'Home Renovation', 'Cost Estimator', 'Interior Design', 'Civil Work'],
     featuredImage: `images/${slug}-featured.webp`,
@@ -96,7 +111,7 @@ function parseGeminiResponse(text, keyword, category, location, slug, publishedD
   };
 }
 
-function generateComprehensiveArticleLocally({ keyword, category, location, slug, publishedDate }) {
+function generateComprehensiveArticleLocally({ keyword, category, location, slug, publishedDate, rawDateIso }) {
   const title = `Ultimate Master Guide to ${keyword} (2026): Comprehensive Costs, Housing Society NOC Permits, Material Selection & Complete Step-by-Step Execution`;
   const description = `Planning ${keyword.toLowerCase()}? Master your renovation budget, housing society NOC approvals, modular kitchen layouts & material selection with SPD Renovation's 2026 expert guide in ${location}.`;
 
@@ -338,6 +353,9 @@ Executing **${keyword.toLowerCase()}** requires a blend of creative design, stru
 Need renovation services in Thane or Mumbai? Contact SPD Renovation today for a free site visit and quotation.
 `;
 
+  const wordCount = markdownContent.trim().split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 250);
+
   return {
     title,
     slug,
@@ -345,6 +363,9 @@ Need renovation services in Thane or Mumbai? Contact SPD Renovation today for a 
     category,
     targetKeyword: keyword,
     publishedDate,
+    rawDateIso,
+    readingTime,
+    wordCount,
     author: 'SPD Electriction & Renovation',
     tags: [category, location, 'Home Renovation', 'Cost Estimator', 'Interior Design', 'Civil Work'],
     featuredImage: `images/${slug}-featured.webp`,

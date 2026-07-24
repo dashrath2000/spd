@@ -356,7 +356,7 @@ export function generateArticleHTML(article, images) {
                 <div class="post-meta">
                     <span><i class="fa-solid fa-user"></i> ${article.author}</span>
                     <span><i class="fa-solid fa-calendar"></i> ${article.publishedDate}</span>
-                    <span><i class="fa-solid fa-clock"></i> ${article.readingTime || 8} min read</span>
+                    <span><i class="fa-solid fa-clock"></i> ${article.readingTime || 8} min</span>
                 </div>
             </div>
         </div>

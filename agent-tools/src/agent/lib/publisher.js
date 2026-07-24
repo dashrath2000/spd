@@ -22,7 +22,7 @@ export async function publishArticle(article, images) {
   await updateBlogListingPage(article, images);
 
   // 3. Update sitemap.xml
-  await updateSitemapXML(article.slug, article.publishedDate);
+  await updateSitemapXML(article.slug, article.rawDateIso || new Date().toISOString().split('T')[0]);
 
   const canonicalUrl = `https://www.spdrenovation.in/${htmlFilename}`;
 
@@ -40,6 +40,8 @@ async function updateBlogListingPage(article, images) {
 
   let blogContent = fs.readFileSync(blogHtmlPath, 'utf-8');
 
+  const readingTimeText = article.readingTime ? `${article.readingTime} min` : '8 min';
+
   const newPostCard = `
                 <!-- Post Card: ${article.title} -->
                 <a href="${article.slug}.html" class="post-card reveal">
@@ -49,7 +51,7 @@ async function updateBlogListingPage(article, images) {
                     <div class="post-card-body">
                         <div class="post-card-meta">
                             <span><i class="fa-solid fa-calendar"></i> ${article.publishedDate}</span>
-                            <span><i class="fa-solid fa-clock"></i> ${article.readingTime || 8} min</span>
+                            <span><i class="fa-solid fa-clock"></i> ${readingTimeText}</span>
                         </div>
                         <h3 class="post-card-title">${article.title}</h3>
                         <p class="post-card-excerpt">${article.description}</p>

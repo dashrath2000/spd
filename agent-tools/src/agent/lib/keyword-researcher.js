@@ -1,8 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import slugify from 'slugify';
 
-const DB_PATH = path.join(process.cwd(), 'src/agent/database/published-topics.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const DB_PATH = path.join(__dirname, '../database/published-topics.json');
 
 export const CATEGORIES = [
   'Home Renovation',
@@ -72,7 +76,6 @@ export function selectNextKeyword() {
     }
   }
 
-  // Fallback: Generate dynamic topic if predefined bank is exhausted
   const randomCategory = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
   const locations = ['Thane', 'Mumbai', 'Navi Mumbai'];
   const loc = locations[Math.floor(Math.random() * locations.length)];

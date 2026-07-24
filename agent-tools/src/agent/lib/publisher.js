@@ -1,18 +1,22 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { generateArticleHTML } from './html-generator.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '../../../..');
 
 export async function publishArticle(article, images) {
   console.log(`🚀 Publishing static HTML article: "${article.title}"...`);
 
-  const rootDir = process.cwd();
   const htmlFilename = `${article.slug}.html`;
-  const filePath = path.join(rootDir, htmlFilename);
+  const filePath = path.join(projectRoot, htmlFilename);
 
   // 1. Generate full HTML page
   const fullHTML = generateArticleHTML(article, images);
   fs.writeFileSync(filePath, fullHTML, 'utf-8');
-  console.log(`✅ HTML Article saved to: ${filePath}`);
+  console.log(`✅ HTML Article saved to root: ${filePath}`);
 
   // 2. Update blog.html post grid
   await updateBlogListingPage(article, images);
@@ -31,7 +35,7 @@ export async function publishArticle(article, images) {
 }
 
 async function updateBlogListingPage(article, images) {
-  const blogHtmlPath = path.join(process.cwd(), 'blog.html');
+  const blogHtmlPath = path.join(projectRoot, 'blog.html');
   if (!fs.existsSync(blogHtmlPath)) return;
 
   let blogContent = fs.readFileSync(blogHtmlPath, 'utf-8');
@@ -45,7 +49,7 @@ async function updateBlogListingPage(article, images) {
                     <div class="post-card-body">
                         <div class="post-card-meta">
                             <span><i class="fa-solid fa-calendar"></i> ${article.publishedDate}</span>
-                            <span><i class="fa-solid fa-clock"></i> ${article.readingTime} min</span>
+                            <span><i class="fa-solid fa-clock"></i> ${article.readingTime || 8} min</span>
                         </div>
                         <h3 class="post-card-title">${article.title}</h3>
                         <p class="post-card-excerpt">${article.description}</p>
@@ -61,7 +65,7 @@ async function updateBlogListingPage(article, images) {
 }
 
 async function updateSitemapXML(slug, publishedDate) {
-  const sitemapPath = path.join(process.cwd(), 'sitemap.xml');
+  const sitemapPath = path.join(projectRoot, 'sitemap.xml');
   if (!fs.existsSync(sitemapPath)) return;
 
   let sitemap = fs.readFileSync(sitemapPath, 'utf-8');

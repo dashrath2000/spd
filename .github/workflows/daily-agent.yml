@@ -21,9 +21,11 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
+        working-directory: agent-tools
         run: npm ci
 
       - name: Run SPD Renovation Blog Agent
+        working-directory: agent-tools
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node src/agent/index.js

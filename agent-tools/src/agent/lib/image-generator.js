@@ -1,18 +1,21 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import sharp from 'sharp';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '../../../..');
 
 export async function generateBlogImages({ slug, keyword, location }) {
   console.log(`🖼️ Processing WebP images (1200x630) for static site images/ folder: "${keyword}"...`);
 
-  const outputDir = path.join(process.cwd(), 'images');
+  const outputDir = path.join(projectRoot, 'images');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
   const featuredPath = path.join(outputDir, `${slug}-featured.webp`);
-
-  // Source generated PNG images or generate sharp canvas WebP graphic
   const brainDir = '/Users/dashrathprajapati/.gemini/antigravity-ide/brain/daac7190-8c9a-4706-a6ff-290595693a98';
   
   await createOrConvertImage(`${brainDir}/home_renovation_featured_1784826498379.png`, featuredPath, keyword, '#0d145c');
